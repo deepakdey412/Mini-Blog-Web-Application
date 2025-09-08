@@ -1,34 +1,20 @@
 package com.deepak.mini_blog.dto;
 
-import com.deepak.mini_blog.model.Post;
-import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer userId;
-
-    @Column(name = "user_name", nullable = false, length = 100)
     private String userName;
-
-    @Column(name = "user_email", nullable = false, length = 100, unique = true)
     private String userEmail;
-
-    @Column(name = "user_about", length = 500, nullable = true)
     private String userAbout;
-
-    @Column(name = "user_password", nullable = false, length = 255)
     private String userPassword;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Post> posts = new ArrayList<>();
+    private List<PostDto> posts = new ArrayList<>();
 
     // Default constructor
-    public UserDto() {
-    }
+    public UserDto() {}
 
     // Parameterized constructor
     public UserDto(Integer userId, String userName, String userEmail, String userAbout, String userPassword) {
@@ -80,11 +66,11 @@ public class UserDto {
         this.userPassword = userPassword;
     }
 
-    public List<Post> getPosts() {
+    public List<PostDto> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<Post> posts) {
+    public void setPosts(List<PostDto> posts) {
         this.posts = posts;
     }
 }
