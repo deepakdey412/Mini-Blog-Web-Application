@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class UserService {
@@ -45,19 +45,41 @@ public class UserService {
         return returnList;
     }
 
-    //Get user by id
-//    public Optional<UserDto> getUserById(Integer id){
-//        Optional<User> foundUser = userRepository.findById(id);
-////        Optional<UserDto> foundedUser = userMapper.toDto(foundUser);
-//
-////        return Optional.ofNullable( userMapper.toDto(foundUser));
+    // Get user by id (simple)
+    public UserDto getUserById(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        return userMapper.toDto(user);
+    }
+
+//    public Optional<UserDto> getUserById(Integer id) {
+//        return userRepository.findById(id)
+//                .map(userMapper::toDto);
 //    }
 
-    //Delete user by id
-    public void deleteUser(int id){
-//        Optional<User> foundUser = userRepository.findById(id);
-        userRepository.deleteById(id);
+    // Update user by id
+    public UserDto updateUser(Integer id, UserDto userDto) {
+        // Find existing user
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
 
+        // Update fields
+        existingUser.setUserName(userDto.getUserName());
+        existingUser.setUserEmail(userDto.getUserEmail());
+        existingUser.setUserAbout(userDto.getUserAbout());
+        existingUser.setUserPassword(userDto.getUserPassword());
+
+        // Save updated user
+        User updatedUser = userRepository.save(existingUser);
+
+        // Convert to DTO and return
+        return userMapper.toDto(updatedUser);
+    }
+
+
+    // Delete user by id
+    public void deleteUser(Integer id) {
+        userRepository.deleteById(id);
     }
 
 }
