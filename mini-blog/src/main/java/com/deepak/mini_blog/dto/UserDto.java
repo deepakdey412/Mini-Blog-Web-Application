@@ -1,5 +1,7 @@
 package com.deepak.mini_blog.dto;
 
+import com.deepak.mini_blog.model.Post;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class UserDto {
     private String userAbout;
     private String userPassword;
 
-    private List<PostDto> posts = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     // Default constructor
     public UserDto() {}
@@ -66,11 +68,11 @@ public class UserDto {
         this.userPassword = userPassword;
     }
 
-    public List<PostDto> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<PostDto> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 }
