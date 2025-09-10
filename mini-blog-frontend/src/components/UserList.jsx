@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { deleteUserById, getUsers } from "../api/userApi"; // Adjust path
+import { deleteUserById, getAllUsers } from "../api/userApi";
 
 function UserList() {
     const [users, setUsers] = useState([]);
 
     const loadUsers = async () => {
-        const response = await getUsers();
-        setUsers(response.data);
+        try {
+            const response = await getAllUsers();
+            setUsers(response.data);
+        } catch (error) {
+            console.error("Error loading users:", error);
+        }
     };
 
     useEffect(() => {
@@ -14,14 +18,18 @@ function UserList() {
     }, []);
 
     const handleDelete = async (id) => {
-        await deleteUserById(id);
-        loadUsers();
+        try {
+            await deleteUserById(id);
+            loadUsers();
+        } catch (error) {
+            console.error("Error deleting user:", error);
+        }
     };
 
     return (
         <div className="p-4">
             <h2 className="text-lg font-bold mb-3">User List</h2>
-            {
+            {users.length > 0 ? (
                 users.map((u) => (
                     <div key={u.id} className="flex justify-between border p-2 mb-2 rounded">
                         <span>
@@ -35,9 +43,14 @@ function UserList() {
                         </button>
                     </div>
                 ))
-            }
+            ) : (
+                <p>No users found.</p>
+            )}
         </div>
     );
 }
 
 export default UserList;
+
+
+

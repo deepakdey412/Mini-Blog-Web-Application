@@ -15,12 +15,16 @@ public class MiniBlogApplication {
 	}
 
 	@Bean
-	public WebMvcConfigurer configurerCROS(){
+	public WebMvcConfigurer configurerCORS() {
 		return new WebMvcConfigurer() {
-			public  void addCORSMapping(CorsRegistry registry){
-				registry.addMapping("/**").allowedOrigins("http://localhost:5173");
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**")
+						.allowedOrigins("http://localhost:5177")
+						.allowedMethods("GET", "POST", "PUT", "DELETE");
 			}
 		};
 	}
+
 
 }

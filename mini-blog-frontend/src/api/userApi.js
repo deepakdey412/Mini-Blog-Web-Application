@@ -1,15 +1,17 @@
-import {api} from './api'
-//Create user 
-export const createUser = (user)=>api.post("/",user);
+// src/api/userApi.js
+import { api } from "./api";
 
-//Get all users
-export const getAllUsers = ()=>api.get("/");
+// Create user
+export const createUser = (user) => api.post("/", user);
 
-//Get user by id
-export const getUserById = (id)=>api.get(`/${id}`);
+// Get all users
+export const getAllUsers = () => api.get("/");
 
-//Update user by id
-export const updateUserById = (id,user)=>api.put(`/${id}`,user);
+// Get user by id
+export const getUserById = (id) => api.get(`/${id}`);
 
-//Delete user by id
-export const deleteUserById = (id)=>api.delete(`/${id}`);
+// Update user by id
+export const updateUserById = (id, user) => api.put(`/${id}`, user);
+
+// Delete user by id
+export const deleteUserById = (id) => api.delete(`/${id}`);
