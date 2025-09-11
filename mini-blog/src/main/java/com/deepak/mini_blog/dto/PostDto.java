@@ -10,7 +10,7 @@ public class PostDto {
     private String imageName;
     private Date createdDate;
     private UserDto user;      // User details included
-//    private CategoryDto category;  // Commented out for now
+    private CategoryDto category;  // Commented out for now
 
     // Default constructor
     public PostDto() {}
@@ -23,7 +23,7 @@ public class PostDto {
         this.imageName = imageName;
         this.createdDate = createdDate;
         this.user = user;
-//        this.category = category;  // Commented out
+        this.category = category;  // Commented out
     }
 
     // Getters & Setters
@@ -75,13 +75,13 @@ public class PostDto {
         this.user = user;
     }
 
-//    public CategoryDto getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(CategoryDto category) {
-//        this.category = category;
-//    }
+    public CategoryDto getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryDto category) {
+        this.category = category;
+    }
 
     @Override
     public String toString() {
@@ -92,7 +92,7 @@ public class PostDto {
                 ", imageName='" + imageName + '\'' +
                 ", createdDate=" + createdDate +
                 ", user=" + user +
-//                ", category=" + category +
+                ", category=" + category +
                 '}';
     }
 }
