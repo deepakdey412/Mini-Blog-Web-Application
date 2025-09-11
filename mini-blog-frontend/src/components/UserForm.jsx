@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { createUser } from "../api/api";
-import "./UserForm.css";
-
+import { createUser } from "../api/userApi";
 
 function UserForm({ onSuccess }) {
   const [user, setUser] = useState({
-    name: "",
-    email: "",
-    password: "",
-    about: ""
+    userName: "",
+    userEmail: "",
+    userPassword: "",
+    userAbout: ""
   });
 
   const handleChange = (e) => {
@@ -31,45 +29,65 @@ function UserForm({ onSuccess }) {
   };
 
   return (
-    <form className="user-form" onSubmit={handleSubmit}>
-      <h2>Create New User</h2>
+    <div className="container mt-4">
+      <div className="card shadow-sm">
+        <div className="card-body">
+          <h2 className="card-title text-center mb-3">Create New User</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <input
+                type="text"
+                name="userName"
+                value={user.userName}
+                onChange={handleChange}
+                className="form-control"
+                placeholder="Name"
+                required
+              />
+            </div>
 
-      <input
-        type="text"
-        name="name"
-        value={user.name}
-        onChange={handleChange}
-        placeholder="Name"
-        required
-      />
+            <div className="mb-3">
+              <input
+                type="email"
+                name="userEmail"
+                value={user.userEmail}
+                onChange={handleChange}
+                className="form-control"
+                placeholder="Email"
+                required
+              />
+            </div>
 
-      <input
-        type="email"
-        name="email"
-        value={user.email}
-        onChange={handleChange}
-        placeholder="Email"
-        required
-      />
+            <div className="mb-3">
+              <input
+                type="password"
+                name="userPassword"
+                value={user.userPassword}
+                onChange={handleChange}
+                className="form-control"
+                placeholder="Password"
+                required
+              />
+            </div>
 
-      <input
-        type="password"
-        name="password"
-        value={user.password}
-        onChange={handleChange}
-        placeholder="Password"
-        required
-      />
+            <div className="mb-3">
+              <textarea
+                name="userAbout"
+                value={user.userAbout}
+                onChange={handleChange}
+                className="form-control"
+                placeholder="About"
+                rows="3"
+              />
+            </div>
 
-      <textarea
-        name="about"
-        value={user.about}
-        onChange={handleChange}
-        placeholder="About"
-      />
-
-      <button type="submit">Create User</button>
-    </form>
+            <button type="submit" className="btn btn-primary w-100">
+              Create User
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 
