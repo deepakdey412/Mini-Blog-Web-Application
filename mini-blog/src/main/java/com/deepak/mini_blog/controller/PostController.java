@@ -4,6 +4,7 @@ import com.deepak.mini_blog.dto.PostDto;
 import com.deepak.mini_blog.model.Category;
 import com.deepak.mini_blog.model.Post;
 import com.deepak.mini_blog.model.User;
+import com.deepak.mini_blog.service.PostService;
 import com.deepak.mini_blog.service.PostServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,12 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
-    private final PostServiceImpl postService;
+    private final PostService postService;
 
-    public PostController(PostServiceImpl postService) {
+    public PostController(PostService postService) {
         this.postService = postService;
     }
+
 
     // ===== Create a post =====
     @PostMapping("/users/{userId}/categories/{categoryId}")
@@ -32,14 +34,14 @@ public class PostController {
         return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
     }
     // ===== Get all posts =====
-    @GetMapping("/posts")
+    @GetMapping
     public ResponseEntity<List<PostDto>> getAllPosts() {
         List<PostDto> posts = this.postService.getAllPosts();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     // ===== Get a post by ID =====
-    @GetMapping("/posts/{postId}")
+    @GetMapping("/{postId}")
     public ResponseEntity<PostDto> getPostById(@PathVariable Integer postId) {
         PostDto postDto = this.postService.getPostById(postId);
         return new ResponseEntity<>(postDto, HttpStatus.OK);
@@ -55,7 +57,7 @@ public class PostController {
     }
 
     // ===== Delete a post =====
-    @DeleteMapping("/posts/{postId}")
+    @DeleteMapping("/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable Integer postId) {
         this.postService.deletePost(postId);
         return new ResponseEntity<>("Post deleted successfully with ID: " + postId, HttpStatus.OK);
