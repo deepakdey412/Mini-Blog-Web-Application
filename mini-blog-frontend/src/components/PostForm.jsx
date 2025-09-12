@@ -1,5 +1,6 @@
+// src/components/PostForm.jsx
 import React, { useState } from "react";
-import { createPost } from "../api/postApi"; // adjust path according to your project structure
+import { createPost } from "../api/postApi";
 
 const PostForm = ({ onSubmit, categories }) => {
   const [title, setTitle] = useState("");
@@ -27,14 +28,13 @@ const PostForm = ({ onSubmit, categories }) => {
       const response = await createPost(postData, userId, categoryId);
       setMessage(`Post created successfully with ID: ${response.data.postId}`);
 
-      // Reset form
       setTitle("");
       setContent("");
       setImageName("");
       setUserId("");
       setCategoryId("");
 
-      if (onSubmit) onSubmit(response.data); // optional callback
+      if (onSubmit) onSubmit(response.data);
     } catch (error) {
       console.error(error);
       setMessage("Failed to create post. Please try again.");
@@ -43,54 +43,59 @@ const PostForm = ({ onSubmit, categories }) => {
 
   return (
     <div className="post-form-container">
-      <h2>Create New Post</h2>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
+      <h2 className="text-xl font-semibold mb-2">Create New Post</h2>
+      {message && <p className="mb-2 text-sm text-red-500">{message}</p>}
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label>Title:</label>
+          <label className="block mb-1">Title:</label>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            className="w-full border p-2 rounded"
           />
         </div>
 
         <div>
-          <label>Content:</label>
+          <label className="block mb-1">Content:</label>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
+            className="w-full border p-2 rounded"
           />
         </div>
 
         <div>
-          <label>Image Name:</label>
+          <label className="block mb-1">Image Name:</label>
           <input
             type="text"
             value={imageName}
             onChange={(e) => setImageName(e.target.value)}
             placeholder="default.png"
+            className="w-full border p-2 rounded"
           />
         </div>
 
         <div>
-          <label>User ID:</label>
+          <label className="block mb-1">User ID:</label>
           <input
             type="number"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
             required
+            className="w-full border p-2 rounded"
           />
         </div>
 
         <div>
-          <label>Category:</label>
+          <label className="block mb-1">Category:</label>
           <select
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
             required
+            className="w-full border p-2 rounded"
           >
             <option value="">Select a category</option>
             {categories &&
@@ -102,7 +107,12 @@ const PostForm = ({ onSubmit, categories }) => {
           </select>
         </div>
 
-        <button type="submit">Create Post</button>
+        <button
+          type="submit"
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Create Post
+        </button>
       </form>
     </div>
   );
